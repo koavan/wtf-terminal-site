@@ -1,0 +1,45 @@
+// CloudFront Function (viewer request).
+//  1. www.${apex}  -> 301 to https://${apex}
+//  2. /docs/install      -> 301 to /docs/install/   (directory without slash)
+//  3. /docs/install/     -> /docs/install/index.html (what S3 actually holds)
+function handler(event) {
+  var request = event.request;
+  var uri = request.uri;
+
+  var qs = '';
+  var keys = Object.keys(request.querystring || {});
+  if (keys.length > 0) {
+    var parts = [];
+    keys.forEach(function (k) {
+      var q = request.querystring[k];
+      if (q.multiValue) {
+        q.multiValue.forEach(function (m) { parts.push(k + '=' + m.value); });
+      } else {
+        parts.push(q.value === '' ? k : k + '=' + q.value);
+      }
+    });
+    qs = '?' + parts.join('&');
+  }
+
+  function redirect(location) {
+    return {
+      statusCode: 301,
+      statusDescription: 'Moved Permanently',
+      headers: { location: { value: location } }
+    };
+  }
+
+  var host = request.headers.host ? request.headers.host.value : '';
+  if (host.indexOf('www.') === 0) {
+    return redirect('https://${apex}' + uri + qs);
+  }
+
+  if (uri.charAt(uri.length - 1) === '/') {
+    request.uri = uri + 'index.html';
+  } else if (uri.lastIndexOf('.') < uri.lastIndexOf('/')) {
+    // last path segment has no file extension: it is a directory
+    return redirect('https://' + host + uri + '/' + qs);
+  }
+
+  return request;
+}

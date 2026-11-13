@@ -1,4 +1,12 @@
 docs/manual/
 docs/.version
-site/
+/site/
 .venv/
+
+# OpenTofu / Terraform
+infra/**/.terraform/
+infra/**/*.tfstate
+infra/**/*.tfstate.*
+infra/**/backend.hcl
+infra/**/*.tfvars
+infra/**/crash.log
