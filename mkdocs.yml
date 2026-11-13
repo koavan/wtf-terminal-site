@@ -1,6 +1,6 @@
 site_name: wtf
 site_description: A browser-like terminal for macOS and Linux.
-site_url: https://koavan.github.io/wtf-terminal-site/docs/
+site_url: https://wtf-terminal.in/docs/
 repo_url: https://github.com/koavan/wtf-terminal
 repo_name: koavan/wtf-terminal
 
@@ -24,7 +24,7 @@ theme:
         name: Switch to light mode
 
 nav:
-  - Website: https://koavan.github.io/wtf-terminal-site/
+  - Website: https://wtf-terminal.in/
   - Home: index.md
   - Install: install.md
   - Getting started:

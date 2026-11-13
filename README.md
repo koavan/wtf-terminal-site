@@ -19,8 +19,15 @@ python3 -m http.server -d site 8000        # landing at /, manual at /docs/
 
 ## Deploy
 
-Pushes to `main` build and publish to GitHub Pages. wtf-terminal also triggers
-a rebuild (`repository_dispatch`, type `manual-updated`) when `manual/` changes.
+The site is served from https://wtf-terminal.in (S3 behind CloudFront, managed
+with OpenTofu in `infra/`). Pushing does not deploy; run:
+
+```sh
+MKDOCS=.venv/bin/mkdocs scripts/deploy.sh --build   # build, sync to S3, invalidate CloudFront
+```
+
+The manual is pulled from wtf-terminal's `manual/` at build time, so redeploy
+after changing it there. See `infra/` for the AWS setup.
 
 ## License
 
