@@ -1,0 +1,4 @@
+docs/manual/
+docs/.version
+site/
+.venv/
