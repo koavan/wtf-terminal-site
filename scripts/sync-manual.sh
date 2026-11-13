@@ -27,5 +27,8 @@ for f in "$root"/docs/manual/*.md; do
   rm -f "$f.bak"
 done
 
+# Expand {{cmd:…}}, {{key:…}} and {{mac:…|other:…}} using the app's own registries.
+python3 "$root/scripts/expand_manual.py" "$src" "$root/docs/manual"
+
 tr -d '[:space:]' < "$src/VERSION" > "$root/docs/.version"
 echo "synced $(ls "$root/docs/manual" | wc -l | tr -d ' ') pages, version $(cat "$root/docs/.version")"

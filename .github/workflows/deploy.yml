@@ -29,8 +29,7 @@ jobs:
         with:
           python-version: "3.13"
       - run: pip install -r requirements.txt
-      - run: scripts/sync-manual.sh wtf-terminal
-      - run: mkdocs build --strict
+      - run: scripts/build.sh wtf-terminal
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
