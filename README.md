@@ -21,3 +21,7 @@ python3 -m http.server -d site 8000        # landing at /, manual at /docs/
 
 Pushes to `main` build and publish to GitHub Pages. wtf-terminal also triggers
 a rebuild (`repository_dispatch`, type `manual-updated`) when `manual/` changes.
+
+## License
+
+[MIT](LICENSE)
